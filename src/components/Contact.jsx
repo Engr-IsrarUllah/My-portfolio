@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { personalInfo } from "@/lib/data";
-import { Mail, MapPin, Copy, Check, Send, Loader2 } from "lucide-react";
+import { Mail, MapPin, Copy, Check, Send, Loader2, Phone } from "lucide-react";
+
 import { sendEmail } from "@/app/actions";
 
 export default function Contact() {
@@ -66,28 +67,54 @@ export default function Contact() {
               <span className="text-lg">{personalInfo.location}</span>
             </div>
 
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-white/5 rounded-full border border-white/10">
-                <Mail size={20} className="text-blue-400" />
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="text-lg text-gray-300">
-                  {personalInfo.email}
-                </span>
-                <button
-                  onClick={handleCopy}
-                  className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors border border-white/10 text-gray-400 hover:text-white"
-                  title="Copy Email"
-                >
-                  {copied ? (
-                    <Check size={16} className="text-green-500" />
-                  ) : (
-                    <Copy size={16} />
-                  )}
-                </button>
-              </div>
-            </div>
-          </div>
+   <div className="flex items-center gap-4">
+      <div className="p-3 bg-white/5 rounded-full border border-white/10">
+        <Mail size={20} className="text-blue-400" />
+      </div>
+      <div className="flex items-center gap-3">
+        <span className="text-lg text-gray-300">
+          {personalInfo.email}
+        </span>
+        <button
+          onClick={handleCopy}
+          className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors border border-white/10 text-gray-400 hover:text-white"
+          title="Copy Email"
+        >
+          {copied ? (
+            <Check size={16} className="text-green-500" />
+          ) : (
+            <Copy size={16} />
+          )}
+        </button>
+      </div>
+    </div>
+ 
+    
+    <div className="flex items-center gap-4">
+      <div className="p-3 bg-white/5 rounded-full border border-white/10">
+        <Phone size={20} className="text-blue-400" /> 
+      </div>
+      <div className="flex items-center gap-3">
+        <a 
+          href={`https://wa.me/${personalInfo.phone.replace(/[\s-]/g, "")}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-lg text-gray-300 hover:text-green-400 transition-colors"
+          title="Chat on WhatsApp"
+        >
+          {personalInfo.displayPhone || personalInfo.phone} 
+        </a>
+  
+        <a
+          href={`tel:${personalInfo.phone.replace(/[\s-]/g, "")}`}
+          className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors border border-white/10 text-gray-400 hover:text-white"
+          title="Call Directly"
+        >
+          <Phone size={16} />
+        </a>
+      </div>
+    </div>
+       </div>
         </div>
 
         {/* Right Side: Professional Form */}
@@ -113,7 +140,7 @@ export default function Contact() {
                 <input
                   name="email"
                   type="email"
-                  placeholder="john@example.com"
+                  placeholder="your@example.com"
                   required
                   className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
                 />

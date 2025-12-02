@@ -9,11 +9,10 @@ export const metadata = {
   openGraph: {
     title: "Israr Ullah | Fullstack Engineer",
     description: "Building scalable web apps with Next.js 16 and Modern UI.",
-    url: "https://israr-dev-portfolio.vercel.app/", // <--- CHANGE THIS after deployment
+    url: "https://israr-dev-portfolio.vercel.app/",
     siteName: "Israr.Dev",
 
     images: ["/opengraph-image.png"], 
-    // ...
   },
 };
 export default function RootLayout({ children }) {
