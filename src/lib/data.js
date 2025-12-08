@@ -54,7 +54,7 @@ export const projects = [
     "A Retrieval-Augmented Generation (RAG) agent that connects to a **Neon serverless PostgreSQL** database. It uses the **OpenAI API** and **Vercel AI SDK** to answer user questions about general topics and perform **natural language database queries** and reporting.",
   tech: ["Next.js", "Vercel AI SDK", "OpenAI API", "Neon DB (PostgreSQL)"],
   link: "https://github.com/Engr-IsrarUllah/RAG-SQL-Database-Agent", 
-  image: "/projects/rag-agent.png", 
+  image: "/projects/Rag-agent.png", 
 },
   {
     title: "GourmetFinds",
