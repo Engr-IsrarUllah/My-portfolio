@@ -32,7 +32,7 @@ export default function Footer() {
           </a>
 
           <a
-            href="https://github.com/your-github-username"
+            href="https://github.com/Engr-IsrarUllah"
             target="_blank"
             className="p-3 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-white/10 transition-all"
             aria-label="GitHub"
