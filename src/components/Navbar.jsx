@@ -36,14 +36,14 @@ export default function Navbar() {
         transition={{ duration: 0.35, ease: "easeInOut" }}
         className="fixed top-6 inset-x-0 mx-auto z-100 max-w-2xl px-4"
       >
-        <div className="relative flex items-center justify-between px-6 py-3 rounded-full border border-white/10 bg-black/60 backdrop-blur-xl shadow-2xl shadow-black/50">
+        <div className="relative flex items-center justify-between px-6 py-3 rounded-full border border-zinc-800 bg-zinc-950/80 backdrop-blur-xl shadow-2xl shadow-black/80">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group">
-            <div className="p-2 bg-blue-600/20 rounded-lg border border-blue-500/30 group-hover:border-blue-500 transition-colors">
-              <Terminal size={18} className="text-blue-500" />
+          <a href="#" className="flex items-center gap-2.5 group">
+            <div className="p-1.5 bg-zinc-900 rounded-lg border border-zinc-800 group-hover:border-zinc-700 transition-colors">
+              <Terminal size={16} className="text-blue-400" />
             </div>
-            <span className="font-bold text-gray-200 tracking-tight text-sm">
-              Israr<span className="text-blue-500">.Dev</span>
+            <span className="font-bold text-zinc-100 tracking-tight text-sm">
+              Israr<span className="text-blue-500">.dev</span>
             </span>
           </a>
 
@@ -53,10 +53,10 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-sm font-medium text-gray-400 hover:text-white transition-colors relative group"
+                className="text-xs uppercase tracking-wider font-semibold text-zinc-400 hover:text-white transition-colors relative group py-1"
               >
                 {link.name}
-                <span className="absolute -bottom-4 left-1/2 w-0 h-0.5 bg-blue-500 -translate-x-1/2 transition-all group-hover:w-full"></span>
+                <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-blue-500 -translate-x-1/2 transition-all group-hover:w-full"></span>
               </a>
             ))}
           </div>
@@ -65,26 +65,28 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             <a
               href="#contact"
-              className="hidden md:block px-4 py-2 text-xs font-bold text-white bg-white/10 hover:bg-white/20 border border-white/5 rounded-full transition-all"
+              className="hidden md:block px-4 py-1.5 text-xs font-semibold text-zinc-950 bg-white hover:bg-zinc-200 rounded-full transition-all shadow-sm"
             >
               Hire Me
             </a>
 
             {/* Divider */}
-            <div className="hidden md:block w-px h-6 bg-white/10"></div>
+            <div className="hidden md:block w-px h-5 bg-zinc-800"></div>
 
             <a
               href={personalInfo.linkedin}
               target="_blank"
-              className="hidden md:block text-gray-400 hover:text-blue-400 transition-colors"
+              rel="noopener noreferrer"
+              className="hidden md:block text-zinc-400 hover:text-white transition-colors"
+              aria-label="LinkedIn"
             >
-              <Linkedin size={18} />
+              <Linkedin size={17} />
             </a>
 
             {/* Mobile Hamburger */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 text-gray-300 hover:text-white"
+              className="md:hidden p-1.5 text-zinc-300 hover:text-white"
             >
               {isOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -98,15 +100,15 @@ export default function Navbar() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="fixed top-24 inset-x-4 z-90 p-4 rounded-2xl bg-black/90 border border-white/10 backdrop-blur-2xl md:hidden"
+          className="fixed top-24 inset-x-4 z-90 p-5 rounded-2xl bg-zinc-950/95 border border-zinc-800 backdrop-blur-2xl md:hidden shadow-2xl"
         >
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="text-base font-medium text-gray-300 hover:text-blue-400 py-2 border-b border-white/5"
+                className="text-sm font-medium text-zinc-300 hover:text-white py-2.5 border-b border-zinc-800/80"
               >
                 {link.name}
               </a>
@@ -114,7 +116,7 @@ export default function Navbar() {
             <a
               href="#contact"
               onClick={() => setIsOpen(false)}
-              className="text-center mt-2 px-4 py-3 bg-blue-600 text-white font-bold rounded-xl"
+              className="text-center mt-2 px-4 py-3 bg-white text-zinc-950 font-semibold rounded-xl text-sm"
             >
               Hire Me
             </a>

@@ -1,150 +1,135 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { Cpu, Globe, Database, Zap } from "lucide-react";
-import { skills } from "@/lib/data";
+import { 
+  Brain, 
+  Layout, 
+  Server, 
+  Database, 
+  Cpu, 
+  Cloud, 
+  Code2, 
+  Layers, 
+  Zap, 
+  ShieldCheck 
+} from "lucide-react";
+import { skillCategories } from "@/lib/data";
 
-// Reusable Bento Card
-const BentoCard = ({ title, children, className }) => (
-  <div
-    className={`p-6 rounded-3xl glass border border-white/10 bg-black/40 ${className}`}
-  >
-    <h3 className="text-lg font-semibold text-white mb-4 tracking-wide">
-      {title}
-    </h3>
-    {children}
-  </div>
-);
+const categoryIcons = {
+  "AI / GenAI": <Brain size={18} className="text-blue-400" />,
+  "Frontend Development": <Layout size={18} className="text-sky-400" />,
+  "Backend Development": <Server size={18} className="text-emerald-400" />,
+  "Databases": <Database size={18} className="text-cyan-400" />,
+  "Machine Learning & Deep Learning": <Cpu size={18} className="text-purple-400" />,
+  "DevOps & Deployment": <Cloud size={18} className="text-amber-400" />,
+  "Programming Languages": <Code2 size={18} className="text-zinc-300" />,
+};
 
 export default function About() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  // 2. The Item: "Buttery Smooth" Easing
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut",
-      },
-    },
-  };
-
   return (
-    <section
-      id="about"
-      className="py-32 px-6 relative bg-black selection:bg-blue-500/30"
-    >
-      <div className="max-w-6xl mx-auto">
+    <section id="about" className="py-28 px-6 relative bg-[#09090b]">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mb-16"
+          transition={{ duration: 0.6 }}
+          className="mb-14"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
-            About Me
+          <span className="text-blue-400 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 inline-block mb-3">
+            Core Profile
+          </span>
+          <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight mb-4">
+            Technical Expertise & Skills
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl leading-relaxed">
-            I don't just write code; I{" "}
-            <span className="text-blue-400 font-semibold">
-              engineer solutions
-            </span>
-            . With a background in Software Engineering and a focus on Fullstack
-            Development, I bridge the gap between complex backend logic and
-            beautiful frontend interfaces.
+          <p className="text-zinc-400 text-base md:text-lg max-w-3xl leading-relaxed">
+            A comprehensive matrix of technologies, modern frameworks, and AI workflows I leverage to build scalable, resilient web architectures.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {/* Main Skill Block */}
-          <BentoCard className="md:col-span-2">
-            <motion.div
-              className="grid grid-cols-2 sm:grid-cols-3 gap-4"
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-50px" }}
-            >
-              {skills.map((skill, i) => (
-                <motion.div
-                  key={i}
-                  variants={itemVariants}
-                  whileHover={{
-                    scale: 1.02,
-                    backgroundColor: "rgba(255, 255, 255, 0.05)",
-                    borderColor: "rgba(59, 130, 246, 0.5)",
-                  }}
-                  className="group flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 cursor-pointer transition-colors"
-                >
-                  <div className="text-blue-400/80 group-hover:text-blue-400 group-hover:scale-110 transition-transform duration-300">
-                    {skill.icon}
-                  </div>
-                  <span className="text-sm font-medium text-gray-400 group-hover:text-white transition-colors duration-300">
-                    {skill.name}
-                  </span>
-                </motion.div>
-              ))}
-            </motion.div>
-          </BentoCard>
-
-          {/* Stats / Highlight Block */}
-          <BentoCard className="md:col-span-1 bg-linear-to-br from-blue-950/30 to-purple-950/30">
-            <div className="flex flex-col justify-center h-full gap-6">
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-                className="flex items-center gap-4 group"
-              >
-                <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg text-blue-400 group-hover:text-white group-hover:bg-blue-500 transition-all duration-300">
-                  <Cpu size={24} />
-                </div>
-                <div>
-                  <div className="text-xl font-bold text-white leading-none mb-1">
-                    Engineering
-                  </div>
-                  <div className="text-xs text-gray-500 uppercase tracking-wider font-semibold">
-                    Degree
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Highlight 2 */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-                className="flex items-center gap-4 group"
-              >
-                <div className="p-3 bg-purple-500/10 border border-purple-500/20 rounded-lg text-purple-400 group-hover:text-white group-hover:bg-purple-500 transition-all duration-300">
-                  <Zap size={24} />
-                </div>
-                <div>
-                  <div className="text-xl font-bold text-white leading-none mb-1">
-                    Fast
-                  </div>
-                  <div className="text-xs text-gray-500 uppercase tracking-wider font-semibold">
-                    Performance
-                  </div>
-                </div>
-              </motion.div>
+        {/* Engineering Standards Banner */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
+          <div className="p-5 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 flex items-start gap-4">
+            <div className="p-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 shrink-0">
+              <Layers size={20} />
             </div>
-          </BentoCard>
+            <div>
+              <h4 className="text-sm font-semibold text-white">Full-Stack & Backend Systems</h4>
+              <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                Scalable distributed applications built with TypeScript, Node.js, Express, FastAPI, PostgreSQL, and MongoDB.
+              </p>
+            </div>
+          </div>
+
+          <div className="p-5 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 flex items-start gap-4">
+            <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 shrink-0">
+              <Zap size={20} />
+            </div>
+            <div>
+              <h4 className="text-sm font-semibold text-white">Agentic AI & Machine Learning</h4>
+              <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                LangGraph workflows, RAG with Qdrant & Pinecone, MCP server integrations, and deep learning with PyTorch & TensorFlow.
+              </p>
+            </div>
+          </div>
+
+          <div className="p-5 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 flex items-start gap-4">
+            <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 shrink-0">
+              <ShieldCheck size={20} />
+            </div>
+            <div>
+              <h4 className="text-sm font-semibold text-white">DevOps & Cloud Reliability</h4>
+              <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                Containerized pipelines with Docker, automated GitHub Actions CI/CD, Linux servers, and secure high-availability deployments.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Responsive Skill Domain Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {skillCategories.map((cat, idx) => (
+            <motion.div
+              key={cat.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.08, duration: 0.5 }}
+              className="h-full"
+            >
+              <div className="h-full p-6 md:p-7 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 backdrop-blur-md hover:border-zinc-700 hover:bg-zinc-900/80 transition-all duration-300 flex flex-col justify-between shadow-lg shadow-black/40 group hover:-translate-y-1">
+                <div>
+                  {/* Card Header */}
+                  <div className="flex items-center justify-between gap-3 mb-5">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-xl bg-zinc-800/80 border border-zinc-700/60 shrink-0 group-hover:border-zinc-600 transition-colors">
+                        {categoryIcons[cat.title] || <Code2 size={18} className="text-zinc-300" />}
+                      </div>
+                      <h3 className="text-base font-bold text-white tracking-tight group-hover:text-blue-400 transition-colors">
+                        {cat.title}
+                      </h3>
+                    </div>
+                    <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-zinc-800/80 border border-zinc-700/60 text-zinc-400 shrink-0">
+                      {cat.badge}
+                    </span>
+                  </div>
+
+                  {/* Skill Pills (Flex wrap ensures 100% responsiveness without any overlapping) */}
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    {cat.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="text-xs md:text-sm px-3 py-1.5 rounded-xl bg-zinc-800/50 border border-zinc-700/60 text-zinc-200 font-medium hover:border-blue-500/50 hover:text-white hover:bg-zinc-800 transition-all duration-200 shadow-xs cursor-default"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
