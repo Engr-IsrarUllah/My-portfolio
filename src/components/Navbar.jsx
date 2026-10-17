@@ -1,10 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { Menu, X, Github, Linkedin, Terminal } from "lucide-react";
+import { Menu, X, Github, Linkedin, Terminal, Sun, Moon } from "lucide-react";
 import { personalInfo } from "@/lib/data";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function Navbar() {
+  const { theme, toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const { scrollY } = useScroll();
@@ -65,10 +67,24 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             <a
               href="#contact"
-              className="hidden md:block px-4 py-1.5 text-xs font-semibold text-zinc-950 bg-white hover:bg-zinc-200 rounded-full transition-all shadow-sm"
+              className="hidden md:block px-4 py-1.5 text-xs font-semibold text-zinc-950 dark:text-zinc-950 bg-white hover:bg-zinc-200 rounded-full transition-all shadow-sm"
             >
               Hire Me
             </a>
+
+            {/* Theme Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              className="p-1.5 rounded-full text-zinc-400 hover:text-white dark:hover:text-white hover:bg-zinc-800/60 dark:hover:bg-zinc-800/60 transition-all cursor-pointer"
+              title={theme === "dark" ? "Switch to Light Theme" : "Switch to Dark Theme"}
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? (
+                <Sun size={17} className="text-amber-400 hover:rotate-45 transition-transform" />
+              ) : (
+                <Moon size={17} className="text-blue-500 hover:-rotate-12 transition-transform" />
+              )}
+            </button>
 
             {/* Divider */}
             <div className="hidden md:block w-px h-5 bg-zinc-800"></div>
@@ -113,6 +129,25 @@ export default function Navbar() {
                 {link.name}
               </a>
             ))}
+            <div className="flex items-center justify-between py-2 border-b border-zinc-800/80">
+              <span className="text-sm font-medium text-zinc-300">Theme</span>
+              <button
+                onClick={toggleTheme}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-800/80 text-xs font-medium text-zinc-200"
+              >
+                {theme === "dark" ? (
+                  <>
+                    <Sun size={14} className="text-amber-400" />
+                    <span>Light Mode</span>
+                  </>
+                ) : (
+                  <>
+                    <Moon size={14} className="text-blue-400" />
+                    <span>Dark Mode</span>
+                  </>
+                )}
+              </button>
+            </div>
             <a
               href="#contact"
               onClick={() => setIsOpen(false)}

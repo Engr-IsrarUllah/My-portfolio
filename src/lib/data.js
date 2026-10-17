@@ -63,7 +63,7 @@ export const experience = [
   {
     company: "Edusoft System Solutions",
     role: "Fullstack Developer",
-    duration: "January 2025 – September 2025",
+    duration: "January 2025 – October 2025",
     description:
       "Developed scalable full-stack web applications using React.js, Node.js, and RESTful APIs. Optimized frontend component performance, streamlined state management, and implemented secure backend service integrations.",
   },

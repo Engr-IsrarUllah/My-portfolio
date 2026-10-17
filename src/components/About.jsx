@@ -98,29 +98,29 @@ export default function About() {
               transition={{ delay: idx * 0.08, duration: 0.5 }}
               className="h-full"
             >
-              <div className="h-full p-6 md:p-7 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 backdrop-blur-md hover:border-zinc-700 hover:bg-zinc-900/80 transition-all duration-300 flex flex-col justify-between shadow-lg shadow-black/40 group hover:-translate-y-1">
+              <div className="h-full p-6 md:p-7 rounded-2xl bg-white dark:bg-zinc-900/60 border border-slate-200 dark:border-zinc-800/80 backdrop-blur-md hover:border-blue-400 dark:hover:border-zinc-700 transition-all duration-300 flex flex-col justify-between shadow-md dark:shadow-lg dark:shadow-black/40 group hover:-translate-y-1">
                 <div>
                   {/* Card Header */}
                   <div className="flex items-center justify-between gap-3 mb-5">
                     <div className="flex items-center gap-3">
-                      <div className="p-2.5 rounded-xl bg-zinc-800/80 border border-zinc-700/60 shrink-0 group-hover:border-zinc-600 transition-colors">
-                        {categoryIcons[cat.title] || <Code2 size={18} className="text-zinc-300" />}
+                      <div className="p-2.5 rounded-xl bg-slate-100 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700/60 shrink-0 group-hover:border-blue-300 dark:group-hover:border-zinc-600 transition-colors">
+                        {categoryIcons[cat.title] || <Code2 size={18} className="text-slate-600 dark:text-zinc-300" />}
                       </div>
-                      <h3 className="text-base font-bold text-white tracking-tight group-hover:text-blue-400 transition-colors">
+                      <h3 className="text-base font-bold text-slate-900 dark:text-white tracking-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                         {cat.title}
                       </h3>
                     </div>
-                    <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-zinc-800/80 border border-zinc-700/60 text-zinc-400 shrink-0">
+                    <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700/60 text-slate-600 dark:text-zinc-400 shrink-0">
                       {cat.badge}
                     </span>
                   </div>
 
-                  {/* Skill Pills (Flex wrap ensures 100% responsiveness without any overlapping) */}
+                  {/* Skill Pills */}
                   <div className="flex flex-wrap gap-2 pt-1">
                     {cat.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="text-xs md:text-sm px-3 py-1.5 rounded-xl bg-zinc-800/50 border border-zinc-700/60 text-zinc-200 font-medium hover:border-blue-500/50 hover:text-white hover:bg-zinc-800 transition-all duration-200 shadow-xs cursor-default"
+                        className="text-xs md:text-sm px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-zinc-800/50 border border-slate-200 dark:border-zinc-700/60 text-slate-800 dark:text-zinc-200 font-medium hover:border-blue-500 hover:text-blue-600 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-zinc-800 transition-all duration-200 shadow-xs cursor-default"
                       >
                         {skill}
                       </span>

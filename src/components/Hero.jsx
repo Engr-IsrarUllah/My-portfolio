@@ -36,7 +36,7 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-          
+
           {/* Left Column: Value Proposition & Professional Intro (7 Cols) */}
           <motion.div
             initial={{ opacity: 0, x: -25 }}
@@ -77,7 +77,7 @@ export default function Hero() {
                 return (
                   <span
                     key={idx}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-zinc-800/80 bg-zinc-900/50 text-zinc-300 text-xs font-medium backdrop-blur-xs hover:border-zinc-700 transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-zinc-800/80 bg-slate-100 dark:bg-zinc-900/50 text-slate-700 dark:text-zinc-300 text-xs font-medium backdrop-blur-xs hover:border-slate-300 dark:hover:border-zinc-700 transition-colors"
                   >
                     <IconComponent size={13} className={item.color} />
                     {item.label}
@@ -90,13 +90,13 @@ export default function Hero() {
             <div className="flex flex-wrap items-center gap-3.5 w-full sm:w-auto mb-10">
               <a
                 href="#projects"
-                className="w-full sm:w-auto px-6 py-3.5 bg-white text-zinc-950 rounded-xl font-semibold hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 shadow-lg shadow-white/10 text-sm active:scale-95"
+                className="w-full sm:w-auto px-6 py-3.5 bg-slate-100 dark:bg-zinc-900 hover:bg-slate-200 dark:hover:bg-zinc-800 hover:text-slate-950 dark:hover:text-white text-slate-700 dark:text-zinc-300 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 text-sm active:scale-95 cursor-pointer"
               >
                 Explore Projects <ArrowRight size={16} />
               </a>
               <a
                 href="#contact"
-                className="w-full sm:w-auto px-6 py-3.5 bg-zinc-900 border border-zinc-800 text-zinc-200 rounded-xl font-semibold hover:bg-zinc-800 hover:text-white transition-all flex items-center justify-center gap-2 text-sm active:scale-95"
+                className="w-full sm:w-auto px-6 py-3.5 bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-slate-800 dark:text-zinc-200 rounded-xl font-semibold hover:bg-slate-200 dark:hover:bg-zinc-800 hover:text-slate-950 dark:hover:text-white transition-all flex items-center justify-center gap-2 text-sm active:scale-95"
               >
                 <Mail size={16} /> Contact Me
               </a>
@@ -105,7 +105,7 @@ export default function Hero() {
                   href={personalInfo.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-3.5 bg-zinc-900/60 border border-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-800 rounded-xl font-medium transition-all flex items-center justify-center gap-2 text-sm"
+                  className="px-4 py-3.5 bg-slate-100 dark:bg-zinc-900/60 border border-slate-200 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-zinc-800 rounded-xl font-medium transition-all flex items-center justify-center gap-2 text-sm"
                   title="GitHub Profile"
                 >
                   <Github size={16} />
@@ -117,7 +117,7 @@ export default function Hero() {
                   href={personalInfo.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-3.5 bg-zinc-900/60 border border-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-800 rounded-xl font-medium transition-all flex items-center justify-center gap-2 text-sm"
+                  className="px-4 py-3.5 bg-slate-100 dark:bg-zinc-900/60 border border-slate-200 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-zinc-800 rounded-xl font-medium transition-all flex items-center justify-center gap-2 text-sm"
                   title="LinkedIn Profile"
                 >
                   <Linkedin size={16} />
@@ -143,46 +143,19 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Right Column: 3D Developer Hub in Glassmorphic Terminal Chassis (5 Cols) */}
+          {/* Right Column: Frameless Orbiting Skills System (5 Cols) */}
           <motion.div
-            initial={{ opacity: 0, x: 25 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-            className="lg:col-span-5 relative w-full flex items-center justify-center"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+            className="lg:col-span-5 relative w-full flex items-center justify-center overflow-visible"
           >
-            {/* Ambient Back Glow */}
-            <div className="absolute -inset-1.5 bg-linear-to-r from-blue-600/20 via-cyan-500/20 to-purple-600/20 rounded-3xl blur-2xl opacity-60 pointer-events-none" />
+            {/* Ambient Back Glow that seamlessly blends into the page */}
+            <div className="absolute -inset-12 bg-radial from-blue-600/15 via-cyan-500/8 to-transparent blur-3xl pointer-events-none" />
 
-            {/* Developer Terminal Frame */}
-            <div className="relative w-full rounded-2xl border border-zinc-800 bg-zinc-950/80 backdrop-blur-xl shadow-2xl overflow-hidden">
-              {/* Terminal Window Header Bar */}
-              <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-800/80 bg-zinc-900/60">
-                {/* Traffic Light Dots */}
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-500/80 border border-red-600/40" />
-                  <div className="w-3 h-3 rounded-full bg-amber-500/80 border border-amber-600/40" />
-                  <div className="w-3 h-3 rounded-full bg-emerald-500/80 border border-emerald-600/40" />
-                </div>
-
-                {/* Tab Title */}
-                <div className="flex items-center gap-2 px-3 py-1 rounded-md bg-zinc-950/70 border border-zinc-800 text-[12px] font-mono text-zinc-300">
-                  <span className="text-blue-400">⚡</span>
-                  <span>israr-workstation.3d</span>
-                  <span className="text-zinc-600">|</span>
-                  <span className="text-emerald-400 text-[10px]">prod-v2</span>
-                </div>
-
-                {/* Status Indicator */}
-                <div className="flex items-center gap-1.5 text-[11px] font-mono text-zinc-400">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                  <span>11ms</span>
-                </div>
-              </div>
-
-              {/* 3D Scene Viewport */}
-              <div className="relative w-full bg-linear-to-b from-zinc-950 via-zinc-950/90 to-[#07090e]">
-                <Hero3D />
-              </div>
+            {/* Frameless Scene */}
+            <div className="relative w-full flex items-center justify-center overflow-visible">
+              <Hero3D />
             </div>
           </motion.div>
 

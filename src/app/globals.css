@@ -1,10 +1,18 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: 9, 9, 11; /* Deep Zinc 950 */
+  --background: 248, 250, 252; /* Slate 50 in light */
+  --foreground: 15, 23, 42;    /* Slate 900 in light */
+  --muted: 100, 116, 139;     /* Slate 500 in light */
+  --accent: 37, 99, 235;      /* Blue 600 */
+}
+
+html.dark {
+  --background: 9, 9, 11;     /* Deep Zinc 950 */
   --foreground: 244, 244, 245; /* Zinc 100 */
-  --muted: 161, 161, 170; /* Zinc 400 */
-  --accent: 37, 99, 235; /* Blue 600 */
+  --muted: 161, 161, 170;     /* Zinc 400 */
+  --accent: 37, 99, 235;      /* Blue 600 */
 }
 
 @theme {
@@ -16,11 +24,10 @@ body {
   color: rgb(var(--foreground));
   background-color: rgb(var(--background));
   overflow-x: hidden;
-  selection-background-color: #2563eb;
-  selection-color: #ffffff;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Subtle, Modern Engineering Grid */
+/* Engineering Background Grid */
 .bg-grid-white {
   background-size: 32px 32px;
   background-image: 
@@ -54,4 +61,272 @@ body {
 /* Smooth Scrolling */
 html {
   scroll-behavior: smooth;
+}
+
+/* =========================================
+   LIGHT THEME STYLING OVERRIDES (html.light)
+   ========================================= */
+html.light {
+  color-scheme: light;
+}
+
+html.light body,
+html.light main {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+/* Grid in Light Mode */
+html.light .bg-grid-white {
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px) !important;
+  opacity: 0.65 !important;
+}
+
+/* Section backgrounds in Light Mode */
+html.light section,
+html.light section[id],
+html.light .bg-\[\#09090b\] {
+  background-color: #f8fafc !important;
+}
+
+/* Typography in Light Mode */
+html.light h1,
+html.light h2,
+html.light h3,
+html.light h4,
+html.light h5,
+html.light h6,
+html.light .text-white,
+html.light .text-zinc-100,
+html.light .text-zinc-200 {
+  color: #0f172a !important;
+}
+
+html.light p,
+html.light .text-zinc-300,
+html.light .text-zinc-400 {
+  color: #334155 !important;
+}
+
+html.light .text-zinc-500,
+html.light .text-zinc-600 {
+  color: #64748b !important;
+}
+
+/* Cards & Surfaces in Light Mode */
+html.light .bg-zinc-950,
+html.light .bg-zinc-950\/95,
+html.light .bg-zinc-950\/90,
+html.light .bg-zinc-950\/80,
+html.light .bg-zinc-950\/70,
+html.light .bg-zinc-950\/60,
+html.light .bg-zinc-900,
+html.light .bg-zinc-900\/80,
+html.light .bg-zinc-900\/70,
+html.light .bg-zinc-900\/60,
+html.light .bg-zinc-900\/50,
+html.light .bg-zinc-900\/40 {
+  background-color: #ffffff !important;
+}
+
+/* Badges, Chips & Skill Tags in Light Mode (fixes user screenshot!) */
+html.light .bg-zinc-800,
+html.light .bg-zinc-800\/90,
+html.light .bg-zinc-800\/80,
+html.light .bg-zinc-800\/70,
+html.light .bg-zinc-800\/60,
+html.light .bg-zinc-800\/50,
+html.light .bg-zinc-800\/40,
+html.light span.bg-zinc-900\/80,
+html.light span.bg-zinc-800\/50,
+html.light span.bg-zinc-800\/80 {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light span.bg-zinc-800\/50:hover,
+html.light span.bg-zinc-900\/80:hover {
+  background-color: #e2e8f0 !important;
+  color: #0f172a !important;
+  border-color: #94a3b8 !important;
+}
+
+/* Project Cards in Light Mode */
+html.light .group.relative.h-full {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light .border-b.border-zinc-800\/80.bg-zinc-900\/60 {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* Project Card image vignette in Light Mode */
+html.light .bg-linear-to-t.from-zinc-950 {
+  background-image: linear-gradient(to top, rgba(255, 255, 255, 0.95), transparent) !important;
+}
+
+
+/* Glass Card in Light Mode */
+html.light .glass {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Borders in Light Mode */
+html.light .border-zinc-800,
+html.light .border-zinc-800\/80,
+html.light .border-zinc-800\/50,
+html.light .border-zinc-800\/40,
+html.light .border-zinc-700,
+html.light .border-zinc-700\/80,
+html.light .border-zinc-700\/60,
+html.light .border-white\/10 {
+  border-color: #e2e8f0 !important;
+}
+
+/* Timeline Indicator in Experience */
+html.light .ring-\[\#09090b\] {
+  --tw-ring-color: #f8fafc !important;
+}
+
+html.light .before\:bg-zinc-800::before {
+  background-color: #cbd5e1 !important;
+}
+
+/* Navbar in Light Mode */
+html.light nav > div {
+  background-color: rgba(255, 255, 255, 0.88) !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06) !important;
+}
+
+html.light nav a.text-zinc-400 {
+  color: #64748b !important;
+}
+
+html.light nav a.text-zinc-400:hover {
+  color: #0f172a !important;
+}
+
+html.light nav a[href="#contact"] {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+}
+
+/* Orbiting Circles in Light Mode */
+html.light .orbit-container .border-zinc-800\/40,
+html.light .orbit-container .border-zinc-800\/50 {
+  border-color: #cbd5e1 !important;
+}
+
+html.light .orbit-container .border-dashed {
+  border-color: rgba(2, 132, 199, 0.35) !important;
+}
+
+html.light .orbit-container .bg-zinc-900\/50,
+html.light .orbit-container .bg-zinc-950\/70 {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06) !important;
+}
+
+html.light .orbit-container .bg-zinc-950\/90 {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+}
+
+/* Inputs & Form in Light Mode */
+html.light input,
+html.light textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+html.light input:focus,
+html.light textarea:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 1px #2563eb !important;
+}
+
+/* Scrollbar in Light Mode */
+html.light ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+html.light ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Orbiting Circles Animation Keyframes */
+@keyframes orbit-cw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-ccw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes counter-rotate-cw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes counter-rotate-ccw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.orbit-track-inner {
+  animation: orbit-ccw 26s linear infinite;
+}
+
+.orbit-track-outer {
+  animation: orbit-cw 38s linear infinite;
+}
+
+.counter-inner {
+  animation: counter-rotate-ccw 26s linear infinite;
+}
+
+.counter-outer {
+  animation: counter-rotate-cw 38s linear infinite;
+}
+
+.orbit-container:hover .orbit-track-inner,
+.orbit-container:hover .orbit-track-outer,
+.orbit-container:hover .counter-inner,
+.orbit-container:hover .counter-outer {
+  animation-play-state: paused;
 }

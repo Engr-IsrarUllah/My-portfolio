@@ -41,28 +41,28 @@ function ProjectCard({ project, index }) {
       />
 
       {/* Top Browser / Window Header Bar */}
-      <div className="flex items-center justify-between px-5 py-3 border-b border-zinc-800/80 bg-zinc-900/60 z-20">
+      <div className="flex items-center justify-between px-5 py-3 border-b border-slate-200 dark:border-zinc-800/80 bg-slate-50/80 dark:bg-zinc-900/60 z-20">
         {/* Window dots & Index */}
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-500/70" />
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/70" />
+            <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
           </div>
-          <span className="text-zinc-600 font-mono text-[11px] ml-2">
+          <span className="text-slate-500 dark:text-zinc-500 font-mono text-[11px] ml-2">
             PROJ_{String(index + 1).padStart(2, "0")}
           </span>
         </div>
 
         {/* Category Pill */}
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-zinc-950 border border-zinc-800 text-[11px] font-medium text-zinc-300">
-          <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 text-[11px] font-medium text-slate-700 dark:text-zinc-300">
+          <span className="w-1.5 h-1.5 rounded-full bg-blue-500 dark:bg-blue-400" />
           {project.category}
         </span>
       </div>
 
       {/* Preview Image Showcase */}
-      <div className="relative h-56 sm:h-64 w-full overflow-hidden bg-zinc-950 border-b border-zinc-800/80">
+      <div className="relative h-56 sm:h-64 w-full overflow-hidden bg-slate-100 dark:bg-zinc-950 border-b border-slate-200 dark:border-zinc-800/80">
         <Image
           src={project.image}
           alt={project.title}
@@ -71,28 +71,27 @@ function ProjectCard({ project, index }) {
           sizes="(max-width: 768px) 100vw, 50vw"
         />
         {/* Subtle Dark Vignette */}
-        <div className="absolute inset-0 bg-linear-to-t from-zinc-950 via-zinc-950/20 to-transparent" />
-
+        <div className="absolute inset-0 bg-linear-to-t from-slate-900/40 via-transparent to-transparent dark:from-zinc-950 dark:via-zinc-950/20" />
       </div>
 
       {/* Project Content Body */}
       <div className="p-6 sm:p-7 flex flex-col flex-1 z-20">
         {/* Title */}
-        <h3 className="text-lg sm:text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors leading-snug">
+        <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug">
           {project.title}
         </h3>
 
         {/* Description */}
-        <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed mb-6 flex-1">
+        <p className="text-slate-600 dark:text-zinc-400 text-xs sm:text-sm leading-relaxed mb-6 flex-1">
           {project.description}
         </p>
 
         {/* Tech Stack Chips */}
-        <div className="flex flex-wrap gap-1.5 mb-6 pt-4 border-t border-zinc-800/80">
+        <div className="flex flex-wrap gap-1.5 mb-6 pt-4 border-t border-slate-200 dark:border-zinc-800/80">
           {project.tech.map((t) => (
             <span
               key={t}
-              className="text-[11px] px-2.5 py-1 rounded-md bg-zinc-900/80 text-zinc-300 border border-zinc-800 font-mono tracking-tight hover:border-zinc-700 hover:text-white transition-colors"
+              className="text-[11px] px-2.5 py-1 rounded-md bg-slate-100 dark:bg-zinc-900/80 text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-zinc-800 font-mono tracking-tight hover:border-blue-400 dark:hover:border-zinc-700 hover:text-blue-600 dark:hover:text-white transition-colors"
             >
               {t}
             </span>
@@ -106,17 +105,17 @@ function ProjectCard({ project, index }) {
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-300 hover:text-white transition-colors group/link"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-white transition-colors group/link"
             >
-              <Github size={15} className="text-zinc-400 group-hover/link:text-white" />
+              <Github size={15} className="text-slate-500 dark:text-zinc-400 group-hover/link:text-blue-600 dark:group-hover/link:text-white" />
               <span>Explore Repository</span>
               <ArrowUpRight
                 size={13}
-                className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform text-zinc-500 group-hover/link:text-blue-400"
+                className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform text-slate-400 dark:text-zinc-500 group-hover/link:text-blue-600 dark:group-hover/link:text-blue-400"
               />
             </a>
           ) : (
-            <span className="text-xs text-zinc-500 font-mono">Internal Production</span>
+            <span className="text-xs text-slate-500 dark:text-zinc-500 font-mono">Internal Production</span>
           )}
 
           <div className="flex items-center gap-1.5 text-[11px] font-mono text-zinc-500">
@@ -182,14 +181,16 @@ export default function Projects() {
                 <button
                   key={cat.id}
                   onClick={() => setFilter(cat.id)}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5 ${active
-                    ? "bg-zinc-100 text-zinc-950 font-semibold shadow-md shadow-white/10"
-                    : "bg-zinc-900/80 text-zinc-400 hover:text-white border border-zinc-800 hover:border-zinc-700"
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 border ${active
+                    ? "bg-white text-zinc-950 border-white shadow-md shadow-black/10 dark:bg-white dark:text-zinc-950 dark:border-white dark:shadow-white/10"
+                    : "bg-slate-100 hover:bg-slate-200/80 text-slate-700 hover:text-slate-900 border-slate-200 dark:bg-zinc-900/90 dark:hover:bg-zinc-800 dark:text-zinc-400 dark:hover:text-white dark:border-zinc-800"
                     }`}
                 >
                   <span>{cat.label}</span>
                   <span
-                    className={`text-[10px] px-1.5 py-0.2 rounded-full ${active ? "bg-zinc-300 text-zinc-900" : "bg-zinc-800 text-zinc-500"
+                    className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold transition-colors ${active
+                      ? "bg-zinc-900 text-white dark:bg-zinc-900 dark:text-white"
+                      : "bg-slate-200 text-slate-600 dark:bg-zinc-800 dark:text-zinc-400"
                       }`}
                   >
                     {cat.count}

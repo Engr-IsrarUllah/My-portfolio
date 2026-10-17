@@ -1,625 +1,197 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import * as THREE from "three";
-import { RotateCw, Sparkles, Terminal } from "lucide-react";
+import React from "react";
+import { Terminal } from "lucide-react";
+
+// Official Tech SVGs
+const TechIcons = {
+  Nextjs: () => (
+    <svg viewBox="0 0 180 180" className="w-5 h-5 text-white fill-current">
+      <path d="M90 0C40.294 0 0 40.294 0 90s40.294 90 90 90 90-40.294 90-90S139.706 0 90 0zm48.877 127.323l-45.922-59.08v59.08H78.85V52.677h14.105l45.922 59.184V52.677h14.105v74.646h-14.105zM58.91 52.677v74.646H44.805V52.677H58.91z" />
+    </svg>
+  ),
+  React: () => (
+    <svg viewBox="-11.5 -10.23174 23 20.46348" className="w-5 h-5 text-[#61dafb] fill-current">
+      <circle cx="0" cy="0" r="2.05" />
+      <g stroke="#61dafb" strokeWidth="1" fill="none">
+        <ellipse rx="11" ry="4.2" />
+        <ellipse rx="11" ry="4.2" transform="rotate(60)" />
+        <ellipse rx="11" ry="4.2" transform="rotate(120)" />
+      </g>
+    </svg>
+  ),
+  TypeScript: () => (
+    <svg viewBox="0 0 128 128" className="w-5 h-5">
+      <path fill="#3178C6" d="M0 0h128v128H0z" />
+      <path fill="#FFF" d="m66.2 73.8 11.2-6.5c3.3 5.4 7.4 9 14.1 9 6.2 0 10.3-3.1 10.3-7.5 0-5.2-4.2-7.1-11.8-10.4-13.6-5.8-22.5-12.8-22.5-27.1 0-14.2 10.9-24.9 27.6-24.9 11.9 0 20.5 4.5 26.5 15.2l-10.8 6.9c-3.1-5.1-6.7-7.4-15.6-7.4-6.3 0-9.8 3.1-9.8 7.1 0 4.9 3.9 6.8 11.8 10.2 15.2 6.5 22.8 13.4 22.8 27.6 0 16.3-12.6 25.5-29.3 25.5-16.3 0-26.6-7.7-32.5-20.7zM24 23.5h52.7v12.7H51.4v75.4H36.3V36.2H24z" />
+    </svg>
+  ),
+  Python: () => (
+    <svg viewBox="0 0 128 128" className="w-5 h-5">
+      <path fill="#3776AB" d="M63.7 3.3c-13.9 0-23.2 6.1-23.2 17.8v13.3h23.7v3.3H20.7C9 37.7 0 46.9 0 60.8c0 14.1 7.6 22.7 20.7 22.7h7.2v-10c0-13.7 11.7-25.5 25.5-25.5h23.4v-4.3c0-11.5-9.7-20.4-23.7-20.4zm-11.9 8.2a4 4 0 1 1 0 8 4 4 0 0 1 0-8z" />
+      <path fill="#FFD43B" d="M64.3 124.7c13.9 0 23.2-6.1 23.2-17.8V93.6H63.8v-3.3h43.5c11.7 0 20.7-9.2 20.7-23.1 0-14.1-7.6-22.7-20.7-22.7h-7.2v10c0 13.7-11.7 25.5-25.5 25.5H51.2v4.3c0 11.5 9.7 20.4 23.7 20.4zm11.9-8.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8z" />
+    </svg>
+  ),
+  OpenAI: () => (
+    <svg viewBox="0 0 24 24" className="w-5 h-5 text-[#10a37f] fill-current">
+      <path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.771-4.209 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.746-7.07zm-9.022 12.608a4.475 4.475 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zm-9.66-4.524a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-2.045zM2.34 8.908a4.485 4.485 0 0 1 2.365-1.98v5.679a.795.795 0 0 0 .392.68l5.823 3.372-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 8.908zm16.597 3.855l-5.833-3.387L15.119 8.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.674 8.105v-5.679a.79.79 0 0 0-.409-.654zm2.72-4.325l-.142-.085-4.779-2.759a.776.776 0 0 0-.785 0L10.108 8.963V6.636a.08.08 0 0 1 .038-.063l4.84-2.795a4.504 4.504 0 0 1 6.21 4.537zM12 14.072l-2.616-1.51 2.616-1.51 2.616 1.51L12 14.072z" />
+    </svg>
+  ),
+  Docker: () => (
+    <svg viewBox="0 0 24 24" className="w-5 h-5 text-[#2496ed] fill-current">
+      <path d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.186v1.887c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.186.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.888c0 .102.083.186.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.888c0 .102.084.186.186.186m5.894 2.714h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.186v1.887c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186H8.1a.185.185 0 00-.185.186v1.887c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.185-.186H5.136a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m-2.928 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.185-.186H2.208a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m21.758 1.144c-.38-.276-1.528-.426-2.612-.222-.19-.482-.472-.9-.81-1.246l-.27-.267-.282.253a4.05 4.05 0 00-1.328 2.378c-.76-.08-1.92.176-2.585.666-.372.274-.635.65-.776 1.108H.478a.478.478 0 00-.478.479c.074 1.83 1.05 6.643 6.61 6.643 4.887 0 8.528-3.328 10.37-6.52.888.082 2.656-.05 3.513-.934.343-.35.485-.805.474-1.248-.009-.344-.12-.76-.474-1.036" />
+    </svg>
+  ),
+  FastAPI: () => (
+    <svg viewBox="0 0 24 24" className="w-5 h-5 text-[#05998b] fill-current">
+      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-.92 18.77l-4.22-7.3 5.14.01-1.84 7.29zm6.06-6.28h-3.3l1.84-7.29 4.22 7.29h-2.76z" />
+    </svg>
+  ),
+  LangGraph: () => (
+    <div className="w-5 h-5 flex items-center justify-center rounded bg-gradient-to-tr from-emerald-500 to-teal-400 text-black font-mono font-black text-[10px]">
+      LG
+    </div>
+  ),
+  Qdrant: () => (
+    <div className="w-5 h-5 flex items-center justify-center rounded bg-gradient-to-tr from-purple-500 to-indigo-500 text-white font-mono font-bold text-[9px]">
+      QD
+    </div>
+  ),
+  Tailwind: () => (
+    <svg viewBox="0 0 24 24" className="w-5 h-5 text-[#38bdf8] fill-current">
+      <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z" />
+    </svg>
+  ),
+};
+
+// Skill Nodes Configuration
+const innerSkills = [
+  { name: "OpenAI / LLMs", icon: TechIcons.OpenAI, color: "#10a37f" },
+  { name: "LangGraph", icon: TechIcons.LangGraph, color: "#10b981" },
+  { name: "React 19", icon: TechIcons.React, color: "#61dafb" },
+  { name: "TypeScript", icon: TechIcons.TypeScript, color: "#3178C6" },
+];
+
+const outerSkills = [
+  { name: "Next.js 16", icon: TechIcons.Nextjs, color: "#ffffff" },
+  { name: "Python", icon: TechIcons.Python, color: "#facc15" },
+  { name: "FastAPI", icon: TechIcons.FastAPI, color: "#05998b" },
+  { name: "Docker", icon: TechIcons.Docker, color: "#2496ed" },
+  { name: "Qdrant Vector DB", icon: TechIcons.Qdrant, color: "#c084fc" },
+  { name: "Tailwind CSS", icon: TechIcons.Tailwind, color: "#38bdf8" },
+];
 
 export default function Hero3D({ className = "" }) {
-  const mountRef = useRef(null);
-  const [activeTab, setActiveTab] = useState("agent");
-  const isDraggingRef = useRef(false);
-  const prevMousePos = useRef({ x: 0, y: 0 });
-  const manualRotation = useRef({ x: 0.18, y: -0.35 });
-
-  useEffect(() => {
-    const container = mountRef.current;
-    if (!container) return;
-
-    // --- 1. Scene, Camera, Renderer ---
-    const scene = new THREE.Scene();
-    const width = container.clientWidth || 500;
-    const height = container.clientHeight || 500;
-
-    const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 1000);
-    camera.position.set(0, 2.2, 10.5);
-
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.1;
-    container.appendChild(renderer.domElement);
-
-    // Root Group
-    const rootGroup = new THREE.Group();
-    scene.add(rootGroup);
-
-    // Main Workstation Group (centered)
-    const workstationGroup = new THREE.Group();
-    rootGroup.add(workstationGroup);
-
-    // --- 2. Lighting ---
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
-    scene.add(ambientLight);
-
-    const blueSpot = new THREE.PointLight(0x3b82f6, 3.5, 20);
-    blueSpot.position.set(-4, 5, 4);
-    scene.add(blueSpot);
-
-    const cyanSpot = new THREE.PointLight(0x06b6d4, 2.5, 20);
-    cyanSpot.position.set(4, 3, 3);
-    scene.add(cyanSpot);
-
-    const rimLight = new THREE.DirectionalLight(0xa855f7, 1.2);
-    rimLight.position.set(0, -3, -5);
-    scene.add(rimLight);
-
-    // --- 3. Dynamic Screen Texture (Developer Terminal & Code) ---
-    const screenCanvas = document.createElement("canvas");
-    screenCanvas.width = 1024;
-    screenCanvas.height = 640;
-    const sCtx = screenCanvas.getContext("2d");
-
-    const screenTexture = new THREE.CanvasTexture(screenCanvas);
-    screenTexture.anisotropy = 4;
-
-    const codeLines = [
-      { text: "// Production AI Agent Core", color: "#64748b" },
-      { text: "import { DistributedAgent, RAG } from '@ai/core';", color: "#38bdf8" },
-      { text: "import { QdrantVectorDB } from '@db/vectors';", color: "#38bdf8" },
-      { text: "", color: "#ffffff" },
-      { text: "const agent = new DistributedAgent({", color: "#f8fafc" },
-      { text: "  runtime: 'Next.js 16 + Node.js',", color: "#a5f3fc" },
-      { text: "  orchestrator: 'LangGraph Engine',", color: "#a7f3d0" },
-      { text: "  latency: '11ms (edge deployed)',", color: "#fde68a" },
-      { text: "  status: 'Ready for Autonomous Tasks',", color: "#34d399" },
-      { text: "});", color: "#f8fafc" },
-      { text: "", color: "#ffffff" },
-      { text: "await agent.deploy({ uptime: '99.99%' });", color: "#818cf8" },
-      { text: "⚡ System operational: All microservices synced.", color: "#4ade80" },
-    ];
-
-    let cursorVisible = true;
-    let blinkTimer = 0;
-
-    const renderScreenContent = (time) => {
-      sCtx.fillStyle = "#0c0e14";
-      sCtx.fillRect(0, 0, screenCanvas.width, screenCanvas.height);
-
-      // Terminal Header Bar
-      sCtx.fillStyle = "#181b26";
-      sCtx.fillRect(0, 0, screenCanvas.width, 52);
-
-      // Header Buttons
-      sCtx.fillStyle = "#ef4444";
-      sCtx.beginPath();
-      sCtx.arc(30, 26, 7, 0, Math.PI * 2);
-      sCtx.fill();
-
-      sCtx.fillStyle = "#eab308";
-      sCtx.beginPath();
-      sCtx.arc(52, 26, 7, 0, Math.PI * 2);
-      sCtx.fill();
-
-      sCtx.fillStyle = "#22c55e";
-      sCtx.beginPath();
-      sCtx.arc(74, 26, 7, 0, Math.PI * 2);
-      sCtx.fill();
-
-      // Header Title
-      sCtx.fillStyle = "#94a3b8";
-      sCtx.font = "bold 20px monospace";
-      sCtx.fillText("israr-core.tsx — git:(main) ✓ [Production Cluster]", 110, 33);
-
-      // Header Status Tag
-      sCtx.fillStyle = "#059669";
-      sCtx.fillRect(screenCanvas.width - 150, 14, 126, 26);
-      sCtx.fillStyle = "#ecfdf5";
-      sCtx.font = "bold 13px sans-serif";
-      sCtx.fillText("● 100% HEALTHY", screenCanvas.width - 140, 32);
-
-      // Code Lines
-      sCtx.font = "20px 'Fira Code', 'JetBrains Mono', Consolas, monospace";
-      let startY = 95;
-      const lineHeight = 34;
-
-      codeLines.forEach((line, index) => {
-        // Line number
-        sCtx.fillStyle = "#334155";
-        sCtx.fillText((index + 1).toString().padStart(2, "0"), 28, startY);
-
-        // Code text
-        sCtx.fillStyle = line.color;
-        sCtx.fillText(line.text, 68, startY);
-
-        startY += lineHeight;
-      });
-
-      // Animated Cursor
-      if (cursorVisible) {
-        sCtx.fillStyle = "#38bdf8";
-        sCtx.fillRect(490, startY - lineHeight + 4, 12, 22);
-      }
-
-      // Bottom Telemetry Strip
-      sCtx.fillStyle = "#111827";
-      sCtx.fillRect(0, screenCanvas.height - 48, screenCanvas.width, 48);
-
-      sCtx.fillStyle = "#38bdf8";
-      sCtx.font = "14px monospace";
-      sCtx.fillText("MEMORY: 32MB / 512MB  |  RPS: 4,820  |  AGENT RUNS: 1,429  |  REGION: GLOBAL EDGE", 30, screenCanvas.height - 20);
-
-      // Animated pulse bar
-      const pulseWidth = ((Math.sin(time * 3) + 1) / 2) * 120 + 40;
-      sCtx.fillStyle = "#3b82f6";
-      sCtx.fillRect(screenCanvas.width - 180, screenCanvas.height - 28, pulseWidth, 8);
-
-      screenTexture.needsUpdate = true;
-    };
-
-    // --- 4. 3D Developer Laptop Construction ---
-    const laptopGroup = new THREE.Group();
-    workstationGroup.add(laptopGroup);
-
-    // Laptop Base Materials
-    const chassisMat = new THREE.MeshStandardMaterial({
-      color: 0x18181b,
-      metalness: 0.85,
-      roughness: 0.25,
-    });
-
-    const screenBezelMat = new THREE.MeshStandardMaterial({
-      color: 0x09090b,
-      metalness: 0.9,
-      roughness: 0.2,
-    });
-
-    const screenMat = new THREE.MeshBasicMaterial({
-      map: screenTexture,
-    });
-
-    // A. Base Chassis (Bottom part of laptop)
-    const baseGeo = new THREE.BoxGeometry(5.0, 0.16, 3.4);
-    const baseMesh = new THREE.Mesh(baseGeo, chassisMat);
-    baseMesh.position.y = -0.08;
-    laptopGroup.add(baseMesh);
-
-    // B. Keyboard Inset Texture & Mesh
-    const kbCanvas = document.createElement("canvas");
-    kbCanvas.width = 512;
-    kbCanvas.height = 256;
-    const kCtx = kbCanvas.getContext("2d");
-    kCtx.fillStyle = "#121318";
-    kCtx.fillRect(0, 0, 512, 256);
-
-    // Draw keyboard grid
-    kCtx.strokeStyle = "#27272a";
-    kCtx.lineWidth = 2;
-    const rows = 5;
-    const cols = 14;
-    const kw = 30;
-    const kh = 22;
-    const gap = 5;
-    const startX = 18;
-    const startY = 16;
-
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        kCtx.fillStyle = "#1c1d24";
-        kCtx.fillRect(startX + c * (kw + gap), startY + r * (kh + gap), kw, kh);
-        kCtx.strokeRect(startX + c * (kw + gap), startY + r * (kh + gap), kw, kh);
-      }
-    }
-
-    // Trackpad
-    kCtx.strokeStyle = "#38bdf8";
-    kCtx.lineWidth = 1.5;
-    kCtx.fillStyle = "#181a20";
-    kCtx.roundRect(190, 160, 130, 80, 8);
-    kCtx.fill();
-    kCtx.stroke();
-
-    const kbTexture = new THREE.CanvasTexture(kbCanvas);
-    const kbMat = new THREE.MeshStandardMaterial({
-      map: kbTexture,
-      roughness: 0.4,
-      metalness: 0.5,
-    });
-
-    const kbGeo = new THREE.PlaneGeometry(4.4, 2.8);
-    const kbMesh = new THREE.Mesh(kbGeo, kbMat);
-    kbMesh.rotation.x = -Math.PI / 2;
-    kbMesh.position.set(0, 0.01, 0.1);
-    laptopGroup.add(kbMesh);
-
-    // C. Glowing Base Edge Rim
-    const baseGlowGeo = new THREE.BoxGeometry(5.08, 0.04, 3.48);
-    const baseGlowMat = new THREE.MeshBasicMaterial({
-      color: 0x3b82f6,
-      transparent: true,
-      opacity: 0.35,
-    });
-    const baseGlowMesh = new THREE.Mesh(baseGlowGeo, baseGlowMat);
-    baseGlowMesh.position.y = -0.12;
-    laptopGroup.add(baseGlowMesh);
-
-    // D. Screen Display Lid (Rotated at modern 108-degree open angle)
-    const lidGroup = new THREE.Group();
-    lidGroup.position.set(0, 0, -1.6);
-    lidGroup.rotation.x = THREE.MathUtils.degToRad(-15);
-    laptopGroup.add(lidGroup);
-
-    // Screen Lid Back
-    const lidGeo = new THREE.BoxGeometry(5.0, 3.3, 0.1);
-    const lidMesh = new THREE.Mesh(lidGeo, screenBezelMat);
-    lidMesh.position.set(0, 1.65, 0);
-    lidGroup.add(lidMesh);
-
-    // Active Display Screen Panel
-    const screenGeo = new THREE.PlaneGeometry(4.65, 2.95);
-    const screenMesh = new THREE.Mesh(screenGeo, screenMat);
-    screenMesh.position.set(0, 1.65, 0.055);
-    lidGroup.add(screenMesh);
-
-    // Screen Ambient Backlight Glow
-    const screenGlowLight = new THREE.PointLight(0x38bdf8, 2, 8);
-    screenGlowLight.position.set(0, 1.6, 0.8);
-    lidGroup.add(screenGlowLight);
-
-    // --- 5. Orbiting Holographic Tech Tokens ---
-    // Badge generation helper
-    const createBadgeTexture = (label, sublabel, iconColor, bgLinear) => {
-      const bCanvas = document.createElement("canvas");
-      bCanvas.width = 180;
-      bCanvas.height = 180;
-      const bCtx = bCanvas.getContext("2d");
-
-      // Card Background
-      bCtx.fillStyle = bgLinear || "rgba(15, 23, 42, 0.9)";
-      bCtx.beginPath();
-      bCtx.roundRect(10, 10, 160, 160, 24);
-      bCtx.fill();
-
-      // Card Border
-      bCtx.strokeStyle = iconColor || "#38bdf8";
-      bCtx.lineWidth = 4;
-      bCtx.stroke();
-
-      // Main Icon / Glyph
-      bCtx.fillStyle = "#ffffff";
-      bCtx.font = "bold 52px 'Fira Code', monospace";
-      bCtx.textAlign = "center";
-      bCtx.fillText(label, 90, 88);
-
-      // Sublabel
-      bCtx.fillStyle = iconColor || "#94a3b8";
-      bCtx.font = "bold 18px sans-serif";
-      bCtx.fillText(sublabel, 90, 130);
-
-      const texture = new THREE.CanvasTexture(bCanvas);
-      return texture;
-    };
-
-    const techBadges = [
-      { label: "AI", sub: "GenAI Core", color: "#38bdf8", radius: 4.8, speed: 0.6, yOffset: 0.8, phase: 0 },
-      { label: "{ }", sub: "Full Stack", color: "#10b981", radius: 5.2, speed: 0.5, yOffset: -0.4, phase: 1.2 },
-      { label: "⚛", sub: "Next.js 16", color: "#60a5fa", radius: 4.5, speed: 0.7, yOffset: 1.6, phase: 2.4 },
-      { label: "λ", sub: "FastAPI / Node", color: "#f59e0b", radius: 5.5, speed: 0.45, yOffset: -0.9, phase: 3.6 },
-      { label: "🗄️", sub: "Vector DB", color: "#a855f7", radius: 4.9, speed: 0.55, yOffset: 1.1, phase: 4.8 },
-      { label: "</>", sub: "TypeScript", color: "#3b82f6", radius: 5.4, speed: 0.65, yOffset: -0.2, phase: 5.5 },
-    ];
-
-    const orbitingNodes = [];
-
-    techBadges.forEach((badge) => {
-      const nodeGroup = new THREE.Group();
-
-      const bTex = createBadgeTexture(badge.label, badge.sub, badge.color);
-      const bMat = new THREE.MeshBasicMaterial({
-        map: bTex,
-        transparent: true,
-        side: THREE.DoubleSide,
-      });
-
-      // 3D Card Glass Geometry
-      const cardGeo = new THREE.PlaneGeometry(1.3, 1.3);
-      const cardMesh = new THREE.Mesh(cardGeo, bMat);
-      nodeGroup.add(cardMesh);
-
-      // Glowing Backing halo
-      const haloGeo = new THREE.PlaneGeometry(1.4, 1.4);
-      const haloMat = new THREE.MeshBasicMaterial({
-        color: new THREE.Color(badge.color),
-        transparent: true,
-        opacity: 0.15,
-      });
-      const haloMesh = new THREE.Mesh(haloGeo, haloMat);
-      haloMesh.position.z = -0.02;
-      nodeGroup.add(haloMesh);
-
-      rootGroup.add(nodeGroup);
-      orbitingNodes.push({
-        group: nodeGroup,
-        config: badge,
-        texture: bTex,
-        cardGeo,
-        haloGeo,
-        bMat,
-        haloMat,
-      });
-    });
-
-    // --- 6. Orbiting Holographic Rings & Data Stream Splines ---
-    const orbitRing1 = new THREE.Mesh(
-      new THREE.TorusGeometry(5.2, 0.025, 16, 120),
-      new THREE.MeshBasicMaterial({
-        color: 0x38bdf8,
-        transparent: true,
-        opacity: 0.3,
-      })
-    );
-    orbitRing1.rotation.x = Math.PI / 2.3;
-    orbitRing1.rotation.y = 0.2;
-    workstationGroup.add(orbitRing1);
-
-    const orbitRing2 = new THREE.Mesh(
-      new THREE.TorusGeometry(5.7, 0.02, 16, 120),
-      new THREE.MeshBasicMaterial({
-        color: 0xa855f7,
-        transparent: true,
-        opacity: 0.2,
-      })
-    );
-    orbitRing2.rotation.x = Math.PI / 1.7;
-    orbitRing2.rotation.z = 0.4;
-    workstationGroup.add(orbitRing2);
-
-    // --- 7. Floating Cyber Data Particles ---
-    const particleCount = 200;
-    const particleGeo = new THREE.BufferGeometry();
-    const particlePositions = new Float32Array(particleCount * 3);
-
-    for (let i = 0; i < particleCount * 3; i += 3) {
-      particlePositions[i] = (Math.random() - 0.5) * 16;
-      particlePositions[i + 1] = (Math.random() - 0.5) * 12;
-      particlePositions[i + 2] = (Math.random() - 0.5) * 16;
-    }
-    particleGeo.setAttribute("position", new THREE.BufferAttribute(particlePositions, 3));
-
-    const particleMat = new THREE.PointsMaterial({
-      size: 0.08,
-      color: 0x38bdf8,
-      transparent: true,
-      opacity: 0.6,
-      blending: THREE.AdditiveBlending,
-    });
-    const particles = new THREE.Points(particleGeo, particleMat);
-    scene.add(particles);
-
-    // --- 8. Cyber Ground Grid ---
-    const gridHelper = new THREE.GridHelper(16, 24, 0x3b82f6, 0x1e293b);
-    gridHelper.position.y = -2.2;
-    gridHelper.material.transparent = true;
-    gridHelper.material.opacity = 0.35;
-    scene.add(gridHelper);
-
-    // --- 9. Interaction Handlers (Mouse tilt + Click & Drag Orbit) ---
-    let mouse = { x: 0, y: 0 };
-    let targetMouse = { x: 0, y: 0 };
-
-    const handleMouseMove = (e) => {
-      const rect = container.getBoundingClientRect();
-      const clientX = e.clientX - rect.left;
-      const clientY = e.clientY - rect.top;
-      targetMouse.x = (clientX / rect.width) * 2 - 1;
-      targetMouse.y = -(clientY / rect.height) * 2 + 1;
-
-      if (isDraggingRef.current) {
-        const deltaX = e.clientX - prevMousePos.current.x;
-        const deltaY = e.clientY - prevMousePos.current.y;
-        manualRotation.current.y += deltaX * 0.008;
-        manualRotation.current.x += deltaY * 0.008;
-        // Clamp vertical rotation
-        manualRotation.current.x = Math.max(-0.6, Math.min(0.8, manualRotation.current.x));
-        prevMousePos.current = { x: e.clientX, y: e.clientY };
-      }
-    };
-
-    const handleMouseDown = (e) => {
-      isDraggingRef.current = true;
-      prevMousePos.current = { x: e.clientX, y: e.clientY };
-    };
-
-    const handleMouseUp = () => {
-      isDraggingRef.current = false;
-    };
-
-    // Touch support
-    const handleTouchStart = (e) => {
-      if (e.touches.length === 1) {
-        isDraggingRef.current = true;
-        prevMousePos.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-      }
-    };
-
-    const handleTouchMove = (e) => {
-      if (isDraggingRef.current && e.touches.length === 1) {
-        const deltaX = e.touches[0].clientX - prevMousePos.current.x;
-        const deltaY = e.touches[0].clientY - prevMousePos.current.y;
-        manualRotation.current.y += deltaX * 0.008;
-        manualRotation.current.x += deltaY * 0.008;
-        manualRotation.current.x = Math.max(-0.6, Math.min(0.8, manualRotation.current.x));
-        prevMousePos.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-      }
-    };
-
-    const handleTouchEnd = () => {
-      isDraggingRef.current = false;
-    };
-
-    container.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mousedown", handleMouseDown);
-    window.addEventListener("mouseup", handleMouseUp);
-    container.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchmove", handleTouchMove, { passive: true });
-    window.addEventListener("touchend", handleTouchEnd);
-
-    // Responsive Resize Handler
-    const handleResize = () => {
-      if (!container) return;
-      const w = container.clientWidth || 500;
-      const h = container.clientHeight || 500;
-      if (w > 0 && h > 0) {
-        camera.aspect = w / h;
-        camera.updateProjectionMatrix();
-        renderer.setSize(w, h);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    const resizeObserver = new ResizeObserver(handleResize);
-    resizeObserver.observe(container);
-
-    // --- 10. Animation Loop ---
-    let animId;
-    const clock = new THREE.Clock();
-
-    const animate = () => {
-      animId = requestAnimationFrame(animate);
-      const elapsedTime = clock.getElapsedTime();
-
-      // Terminal cursor blink
-      blinkTimer += 0.03;
-      if (blinkTimer > 1) {
-        blinkTimer = 0;
-        cursorVisible = !cursorVisible;
-      }
-
-      // Smooth mouse damping
-      mouse.x += (targetMouse.x - mouse.x) * 0.05;
-      mouse.y += (targetMouse.y - mouse.y) * 0.05;
-
-      // Update screen content periodically
-      renderScreenContent(elapsedTime);
-
-      // Workstation gentle floating bob
-      workstationGroup.position.y = Math.sin(elapsedTime * 1.5) * 0.12;
-
-      // Combine manual drag rotation with slight mouse tilt
-      if (!isDraggingRef.current) {
-        // Slow auto-spin return when not dragging
-        manualRotation.current.y += 0.002;
-      }
-
-      workstationGroup.rotation.y = manualRotation.current.y + mouse.x * 0.25;
-      workstationGroup.rotation.x = manualRotation.current.x - mouse.y * 0.18;
-
-      // Orbiting Tech Badges
-      orbitingNodes.forEach(({ group, config }) => {
-        const angle = elapsedTime * config.speed + config.phase;
-        const x = Math.cos(angle) * config.radius;
-        const z = Math.sin(angle) * config.radius;
-        const y = config.yOffset + Math.sin(elapsedTime * 2 + config.phase) * 0.25;
-
-        group.position.set(x, y, z);
-        // Make badge always look directly at the camera
-        group.lookAt(camera.position);
-      });
-
-      // Rings subtle rotation
-      orbitRing1.rotation.z = elapsedTime * 0.15;
-      orbitRing2.rotation.y = elapsedTime * 0.1;
-
-      // Data particles slow upward drift
-      particles.rotation.y = elapsedTime * 0.03;
-
-      renderer.render(scene, camera);
-    };
-
-    animate();
-
-    // Reset rotation function exposed to parent if needed
-    container.resetRotation = () => {
-      manualRotation.current = { x: 0.18, y: -0.35 };
-    };
-
-    // Cleanup
-    return () => {
-      cancelAnimationFrame(animId);
-      container.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mousedown", handleMouseDown);
-      window.removeEventListener("mouseup", handleMouseUp);
-      container.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("touchend", handleTouchEnd);
-      window.removeEventListener("resize", handleResize);
-      resizeObserver.disconnect();
-
-      if (renderer.domElement && container.contains(renderer.domElement)) {
-        container.removeChild(renderer.domElement);
-      }
-
-      renderer.dispose();
-      baseGeo.dispose();
-      chassisMat.dispose();
-      kbGeo.dispose();
-      kbMat.dispose();
-      kbTexture.dispose();
-      baseGlowGeo.dispose();
-      baseGlowMat.dispose();
-      lidGeo.dispose();
-      screenBezelMat.dispose();
-      screenGeo.dispose();
-      screenMat.dispose();
-      screenTexture.dispose();
-      particleGeo.dispose();
-      particleMat.dispose();
-      gridHelper.dispose();
-      orbitRing1.geometry.dispose();
-      orbitRing1.material.dispose();
-      orbitRing2.geometry.dispose();
-      orbitRing2.material.dispose();
-
-      orbitingNodes.forEach((node) => {
-        node.cardGeo.dispose();
-        node.haloGeo.dispose();
-        node.bMat.dispose();
-        node.haloMat.dispose();
-        node.texture.dispose();
-      });
-    };
-  }, []);
-
-  const handleResetOrientation = () => {
-    if (mountRef.current && mountRef.current.resetRotation) {
-      mountRef.current.resetRotation();
-    }
-  };
-
   return (
-    <div className={`relative w-full h-full flex flex-col items-center justify-center select-none ${className}`}>
-      {/* 3D WebGL Container */}
-      <div
-        ref={mountRef}
-        className="w-full h-[380px] sm:h-[450px] lg:h-[500px] cursor-grab active:cursor-grabbing relative overflow-hidden"
-      />
+    <div className={`relative w-full flex items-center justify-center overflow-visible select-none py-4 ${className}`}>
+      {/* Soft Ambient Radial Backdrop Glow */}
+      <div className="absolute w-[420px] h-[420px] bg-gradient-to-tr from-cyan-500/10 via-blue-600/5 to-purple-600/5 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Floating Interactive Controls & Hint Bar */}
-      <div className="absolute bottom-2 left-4 right-4 flex items-center justify-between pointer-events-none z-10 px-2 py-1.5 rounded-lg bg-zinc-950/60 border border-zinc-800/80 backdrop-blur-md text-[11px] text-zinc-400">
-        <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="font-mono text-zinc-300">Cluster: Active</span>
-          <span className="text-zinc-600">|</span>
-          <span className="hidden sm:inline text-zinc-400">Drag to inspect 360°</span>
+      {/* Orbiting System Container */}
+      <div className="orbit-container relative flex items-center justify-center w-[380px] h-[380px] overflow-visible">
+        
+        {/* Concentric Orbital Track: Outer Ring */}
+        <div className="absolute w-[360px] h-[360px] rounded-full border border-zinc-800/40 pointer-events-none" />
+        <div className="absolute w-[360px] h-[360px] rounded-full border border-dashed border-cyan-500/15 pointer-events-none" />
+
+        {/* Concentric Orbital Track: Inner Ring */}
+        <div className="absolute w-[220px] h-[220px] rounded-full border border-zinc-800/50 pointer-events-none" />
+        <div className="absolute w-[220px] h-[220px] rounded-full border border-dashed border-blue-500/20 pointer-events-none" />
+
+        {/* Centerpiece: Developer Core Badge */}
+        <div className="relative z-10 flex flex-col items-center justify-center w-20 h-20 rounded-2xl bg-zinc-950/70 border border-white/10 shadow-[0_0_35px_rgba(56,189,248,0.2)] backdrop-blur-xl group hover:border-cyan-400/50 transition-all duration-300">
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-cyan-500/15 via-blue-500/10 to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
+          
+          <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 text-white shadow-[0_0_15px_rgba(6,182,212,0.4)]">
+            <Terminal size={20} className="stroke-[2.5]" />
+          </div>
+
+          <div className="mt-1 flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="font-mono text-[9px] text-zinc-300 font-semibold tracking-wider uppercase">
+              Israr.dev
+            </span>
+          </div>
         </div>
 
-        <button
-          onClick={handleResetOrientation}
-          className="pointer-events-auto flex items-center gap-1.5 px-2 py-1 rounded bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 hover:text-white transition-all text-[11px] cursor-pointer"
-          title="Reset 3D camera angle"
-        >
-          <RotateCw size={11} />
-          <span>Reset</span>
-        </button>
+        {/* ================= INNER ORBIT TRACK (4 Skills, CCW) ================= */}
+        <div className="orbit-track-inner absolute inset-0 flex items-center justify-center pointer-events-none overflow-visible">
+          {innerSkills.map((skill, index) => {
+            const total = innerSkills.length;
+            const angle = (360 / total) * index;
+            // Radius: 110px
+            return (
+              <div
+                key={skill.name}
+                className="absolute flex items-center justify-center overflow-visible"
+                style={{
+                  transform: `rotate(${angle}deg) translateY(-110px)`,
+                }}
+              >
+                {/* Counter-rotation to keep icon facing upright */}
+                <div className="counter-inner pointer-events-auto">
+                  <div
+                    className="group relative flex items-center justify-center w-10 h-10 rounded-xl bg-zinc-900/50 border border-white/10 hover:border-cyan-400/50 shadow-[0_4px_16px_rgba(0,0,0,0.3)] backdrop-blur-md hover:scale-115 transition-all duration-300 cursor-pointer"
+                    title={skill.name}
+                  >
+                    {/* Hover Glow */}
+                    <div
+                      className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-40 blur-md transition-opacity duration-300 pointer-events-none"
+                      style={{ backgroundColor: skill.color }}
+                    />
+                    <div className="relative flex items-center justify-center">
+                      <skill.icon />
+                    </div>
+
+                    {/* Skill Tooltip Badge */}
+                    <div className="absolute -bottom-6 px-2 py-0.5 rounded-md bg-zinc-950/90 border border-zinc-700/80 text-[10px] font-mono font-medium text-zinc-200 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap shadow-xl z-30">
+                      {skill.name}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* ================= OUTER ORBIT TRACK (6 Skills, CW) ================= */}
+        <div className="orbit-track-outer absolute inset-0 flex items-center justify-center pointer-events-none overflow-visible">
+          {outerSkills.map((skill, index) => {
+            const total = outerSkills.length;
+            const angle = (360 / total) * index;
+            // Radius: 180px
+            return (
+              <div
+                key={skill.name}
+                className="absolute flex items-center justify-center overflow-visible"
+                style={{
+                  transform: `rotate(${angle}deg) translateY(-180px)`,
+                }}
+              >
+                {/* Counter-rotation to keep icon facing upright */}
+                <div className="counter-outer pointer-events-auto">
+                  <div
+                    className="group relative flex items-center justify-center w-11 h-11 rounded-xl bg-zinc-900/50 border border-white/10 hover:border-cyan-400/50 shadow-[0_4px_16px_rgba(0,0,0,0.3)] backdrop-blur-md hover:scale-115 transition-all duration-300 cursor-pointer"
+                    title={skill.name}
+                  >
+                    {/* Hover Glow */}
+                    <div
+                      className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-40 blur-md transition-opacity duration-300 pointer-events-none"
+                      style={{ backgroundColor: skill.color }}
+                    />
+                    <div className="relative flex items-center justify-center">
+                      <skill.icon />
+                    </div>
+
+                    {/* Skill Tooltip Badge */}
+                    <div className="absolute -bottom-6 px-2 py-0.5 rounded-md bg-zinc-950/90 border border-zinc-700/80 text-[10px] font-mono font-medium text-zinc-200 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap shadow-xl z-30">
+                      {skill.name}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

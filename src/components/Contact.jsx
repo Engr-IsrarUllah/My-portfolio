@@ -74,7 +74,7 @@ export default function Contact() {
           </span>
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
             Let&apos;s build something <br />
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-zinc-100 via-zinc-300 to-zinc-400">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-zinc-300 via-zinc-500 to-zinc-700">
               exceptional.
             </span>
           </h2>
@@ -93,16 +93,16 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between p-4 rounded-2xl bg-zinc-900/50 border border-zinc-800/80">
+            <div className="flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-zinc-900/50 border border-slate-200 dark:border-zinc-800/80 shadow-sm dark:shadow-none">
               <div className="flex items-center gap-4">
-                <div className="p-2.5 bg-zinc-800/80 rounded-xl text-zinc-300">
-                  <Mail size={18} className="text-blue-400" />
+                <div className="p-2.5 bg-slate-100 dark:bg-zinc-800/80 rounded-xl text-slate-700 dark:text-zinc-300">
+                  <Mail size={18} className="text-blue-500 dark:text-blue-400" />
                 </div>
                 <div>
-                  <div className="text-xs text-zinc-500 uppercase tracking-wider font-semibold">Email</div>
+                  <div className="text-xs text-slate-500 dark:text-zinc-500 uppercase tracking-wider font-semibold">Email</div>
                   <a
                     href={`mailto:${personalInfo.email}`}
-                    className="text-sm font-medium text-zinc-200 hover:text-blue-400 transition-colors"
+                    className="text-sm font-medium text-slate-800 dark:text-zinc-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >
                     {personalInfo.email}
                   </a>
@@ -110,29 +110,29 @@ export default function Contact() {
               </div>
               <button
                 onClick={handleCopy}
-                className="p-2 rounded-lg bg-zinc-800/80 hover:bg-zinc-800 transition-colors border border-zinc-700/60 text-zinc-400 hover:text-white cursor-pointer"
+                className="p-2 rounded-lg bg-slate-100 dark:bg-zinc-800/80 hover:bg-slate-200 dark:hover:bg-zinc-800 transition-colors border border-slate-200 dark:border-zinc-700/60 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white cursor-pointer"
                 title="Copy Email"
               >
                 {copied ? (
-                  <Check size={16} className="text-emerald-400" />
+                  <Check size={16} className="text-emerald-500 dark:text-emerald-400" />
                 ) : (
                   <Copy size={16} />
                 )}
               </button>
             </div>
 
-            <div className="flex items-center justify-between p-4 rounded-2xl bg-zinc-900/50 border border-zinc-800/80">
+            <div className="flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-zinc-900/50 border border-slate-200 dark:border-zinc-800/80 shadow-sm dark:shadow-none">
               <div className="flex items-center gap-4">
-                <div className="p-2.5 bg-zinc-800/80 rounded-xl text-zinc-300">
-                  <Phone size={18} className="text-emerald-400" />
+                <div className="p-2.5 bg-slate-100 dark:bg-zinc-800/80 rounded-xl text-slate-700 dark:text-zinc-300">
+                  <Phone size={18} className="text-emerald-500 dark:text-emerald-400" />
                 </div>
                 <div>
-                  <div className="text-xs text-zinc-500 uppercase tracking-wider font-semibold">Phone & WhatsApp</div>
+                  <div className="text-xs text-slate-500 dark:text-zinc-500 uppercase tracking-wider font-semibold">Phone & WhatsApp</div>
                   <a
                     href={`https://wa.me/${personalInfo.phone.replace(/[\s-]/g, "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm font-medium text-zinc-200 hover:text-emerald-400 transition-colors"
+                    className="text-sm font-medium text-slate-800 dark:text-zinc-200 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
                   >
                     {personalInfo.displayPhone || personalInfo.phone}
                   </a>
@@ -140,7 +140,7 @@ export default function Contact() {
               </div>
               <a
                 href={`tel:${personalInfo.phone.replace(/[\s-]/g, "")}`}
-                className="p-2 rounded-lg bg-zinc-800/80 hover:bg-zinc-800 transition-colors border border-zinc-700/60 text-zinc-400 hover:text-white"
+                className="p-2 rounded-lg bg-slate-100 dark:bg-zinc-800/80 hover:bg-slate-200 dark:hover:bg-zinc-800 transition-colors border border-slate-200 dark:border-zinc-700/60 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white"
                 title="Direct Call"
               >
                 <Phone size={16} />
@@ -150,11 +150,11 @@ export default function Contact() {
         </div>
 
         {/* Right Side: Professional Form */}
-        <div className="p-8 md:p-9 rounded-3xl bg-zinc-900/70 border border-zinc-800/80 shadow-2xl shadow-black/50 backdrop-blur-md">
+        <div className="p-8 md:p-9 rounded-3xl bg-white dark:bg-zinc-900/70 border border-slate-200 dark:border-zinc-800/80 shadow-xl shadow-slate-200/50 dark:shadow-2xl dark:shadow-black/50 backdrop-blur-md">
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="grid md:grid-cols-2 gap-5">
               <div className="space-y-2">
-                <label className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-zinc-400">
                   Full Name
                 </label>
                 <input
@@ -162,11 +162,11 @@ export default function Contact() {
                   type="text"
                   placeholder="e.g. John Doe"
                   required
-                  className="w-full bg-zinc-950/70 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                  className="w-full bg-slate-50 dark:bg-zinc-950/70 border border-slate-200 dark:border-zinc-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-zinc-400">
                   Email Address
                 </label>
                 <input
@@ -174,13 +174,13 @@ export default function Contact() {
                   type="email"
                   placeholder="john@example.com"
                   required
-                  className="w-full bg-zinc-950/70 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                  className="w-full bg-slate-50 dark:bg-zinc-950/70 border border-slate-200 dark:border-zinc-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-zinc-400">
                 Message
               </label>
               <textarea
@@ -188,7 +188,7 @@ export default function Contact() {
                 rows={4}
                 placeholder="Describe your project, timeline, or inquiry..."
                 required
-                className="w-full bg-zinc-950/70 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors resize-none"
+                className="w-full bg-slate-50 dark:bg-zinc-950/70 border border-slate-200 dark:border-zinc-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors resize-none"
               ></textarea>
             </div>
 
@@ -224,11 +224,10 @@ export default function Contact() {
             <button
               type="submit"
               disabled={formStatus === "submitting"}
-              className={`w-full py-3.5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-md cursor-pointer ${
-                formStatus === "success"
-                  ? "bg-emerald-600 text-white"
-                  : "bg-white text-zinc-950 hover:bg-zinc-200"
-              }`}
+              className={`w-full py-3.5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-md cursor-pointer ${formStatus === "success"
+                ? "bg-emerald-600 text-white"
+                : "bg-white text-zinc-950 hover:bg-zinc-200"
+                }`}
             >
               {formStatus === "submitting" ? (
                 <>

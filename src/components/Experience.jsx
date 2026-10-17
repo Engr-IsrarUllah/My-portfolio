@@ -37,25 +37,25 @@ export default function Experience() {
               className="relative pl-10 group"
             >
               {/* Timeline Indicator */}
-              <div className="absolute left-1.5 top-6 -translate-y-1/2 w-4 h-4 rounded-full bg-zinc-950 border-2 border-blue-500 ring-4 ring-[#09090b] transition-transform group-hover:scale-125" />
+              <div className="absolute left-1.5 top-6 -translate-y-1/2 w-4 h-4 rounded-full bg-white dark:bg-zinc-950 border-2 border-blue-500 ring-4 ring-slate-100 dark:ring-[#09090b] transition-transform group-hover:scale-125" />
 
               {/* Job Card */}
-              <div className="p-6 md:p-7 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 hover:border-zinc-700 transition-all duration-300">
+              <div className="p-6 md:p-7 rounded-2xl bg-white dark:bg-zinc-900/60 border border-slate-200 dark:border-zinc-800/80 hover:border-blue-400 dark:hover:border-zinc-700 shadow-sm dark:shadow-none transition-all duration-300">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
                   <div>
-                    <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                       {job.role}
                     </h3>
-                    <span className="text-zinc-300 font-medium text-sm">
+                    <span className="text-slate-600 dark:text-zinc-300 font-medium text-sm">
                       {job.company}
                     </span>
                   </div>
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-800/80 border border-zinc-700/60 text-xs font-medium text-zinc-300 self-start sm:self-auto">
-                    <Calendar size={13} className="text-zinc-400" />
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700/60 text-xs font-medium text-slate-700 dark:text-zinc-300 self-start sm:self-auto">
+                    <Calendar size={13} className="text-slate-500 dark:text-zinc-400" />
                     {job.duration}
                   </span>
                 </div>
-                <p className="text-zinc-400 text-sm md:text-base leading-relaxed">
+                <p className="text-slate-600 dark:text-zinc-400 text-sm md:text-base leading-relaxed">
                   {job.description}
                 </p>
               </div>
