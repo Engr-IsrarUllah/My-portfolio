@@ -152,6 +152,9 @@ export default function Contact() {
         {/* Right Side: Professional Form */}
         <div className="p-8 md:p-9 rounded-3xl bg-white dark:bg-zinc-900/70 border border-slate-200 dark:border-zinc-800/80 shadow-xl shadow-slate-200/50 dark:shadow-2xl dark:shadow-black/50 backdrop-blur-md">
           <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Honeypot field for bot spam prevention */}
+            <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" />
+
             <div className="grid md:grid-cols-2 gap-5">
               <div className="space-y-2">
                 <label className="text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-zinc-400">
@@ -162,6 +165,7 @@ export default function Contact() {
                   type="text"
                   placeholder="e.g. John Doe"
                   required
+                  maxLength={100}
                   className="w-full bg-slate-50 dark:bg-zinc-950/70 border border-slate-200 dark:border-zinc-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
                 />
               </div>
@@ -174,6 +178,7 @@ export default function Contact() {
                   type="email"
                   placeholder="john@example.com"
                   required
+                  maxLength={254}
                   className="w-full bg-slate-50 dark:bg-zinc-950/70 border border-slate-200 dark:border-zinc-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
                 />
               </div>
@@ -188,6 +193,7 @@ export default function Contact() {
                 rows={4}
                 placeholder="Describe your project, timeline, or inquiry..."
                 required
+                maxLength={5000}
                 className="w-full bg-slate-50 dark:bg-zinc-950/70 border border-slate-200 dark:border-zinc-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors resize-none"
               ></textarea>
             </div>
